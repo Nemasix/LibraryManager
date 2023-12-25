@@ -7,15 +7,15 @@ using Domain.Entities;
 namespace Domain.Repositories
 {
     /// <summary>
-    /// Represents a repository for managing books.
+    /// Represents a repository for managing Book.
     /// </summary>
-    public interface IBooksRepository
+    public interface IBookRepository
     {
         /// <summary>
-        /// Retrieves all books asynchronously.
+        /// Retrieves all Book asynchronously.
         /// </summary>
         /// <param name="ct">The cancellation token.</param>
-        /// <returns>A task that represents the asynchronous operation. The task result contains the collection of books.</returns>
+        /// <returns>A task that represents the asynchronous operation. The task result contains the collection of Book.</returns>
         Task<IEnumerable<Book>> GetAllAsync(CancellationToken ct = default(CancellationToken));
 
         /// <summary>
@@ -31,12 +31,6 @@ namespace Domain.Repositories
         /// </summary>
         /// <param name="book">The book to add.</param>
         void Add(Book book);
-
-        /// <summary>
-        /// Updates an existing book.
-        /// </summary>
-        /// <param name="book">The book to update.</param>
-        void Update(Book book);
 
         /// <summary>
         /// Deletes a book by its ID.

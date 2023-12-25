@@ -1,5 +1,3 @@
-
-
 namespace Domain.Entities
 {
     /// <summary>

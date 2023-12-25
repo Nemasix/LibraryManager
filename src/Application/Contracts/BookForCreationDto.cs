@@ -7,9 +7,8 @@ using Domain.Entities;
 namespace Application.Contracts
 {
     
-    public class BookDto
+    public class BookForCreationDto
     {
-        public Guid Id { get; set; }
         public string Title { get; set; }
         public string Author { get; set; }
         public string ISBN { get; set; }

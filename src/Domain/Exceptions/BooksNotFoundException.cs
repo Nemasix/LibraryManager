@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace Domain.Exceptions
 {
-    public sealed class BooksNotFoundException
+    public sealed class BookNotFoundException
         : NotFoundException
     {
-        public BooksNotFoundException(Guid id)
+        public BookNotFoundException(Guid id)
             : base($"The book with id {id} was not found.")
         {
         }
