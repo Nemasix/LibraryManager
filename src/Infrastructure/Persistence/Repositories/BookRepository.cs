@@ -10,8 +10,8 @@ namespace Infrastructure.Persistence.Repositories
 {
     public sealed class BookRepository : IBookRepository
     {
-        private readonly RepositoryDbContext _dbContext;
-        public BookRepository(RepositoryDbContext dbContext)
+        private readonly LibraryManagerDbContext _dbContext;
+        public BookRepository(LibraryManagerDbContext dbContext)
         {
             _dbContext = dbContext;
         }

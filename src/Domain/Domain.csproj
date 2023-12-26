@@ -7,11 +7,20 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="DomainEvents\" />
+    <Compile Remove="DomainEvents\**" />
+    <Compile Remove="Shared\**" />
+    <Compile Remove="ValueObjects\**" />
+    <EmbeddedResource Remove="DomainEvents\**" />
+    <EmbeddedResource Remove="Shared\**" />
+    <EmbeddedResource Remove="ValueObjects\**" />
+    <None Remove="DomainEvents\**" />
+    <None Remove="Shared\**" />
+    <None Remove="ValueObjects\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Entities\" />
     <Folder Include="Exceptions\" />
-    <Folder Include="ValueObjects\" />
-    <Folder Include="Shared\" />
     <Folder Include="Repositories\" />
   </ItemGroup>
 
