@@ -16,6 +16,9 @@ internal class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
+        builder.Services.AddDbContext<LibraryManagerDbContext>(options =>
+            options.UseSqlite(builder.Configuration.GetConnectionString("cs")));
+
         builder.Services.AddControllers().AddApplicationPart(typeof(Presentation.AssemblyReference).Assembly);
 
         builder.Services.AddEndpointsApiExplorer();
@@ -28,15 +31,6 @@ internal class Program
             .AddPresentation();
 
         builder.Services.AddTransient<ExceptionHandlingMiddleware>();
-
-        builder.Services.AddDbContext<LibraryManagerDbContext>(options =>
-        {
-            var connectionStrings = builder.Configuration["LibraryManagerDatabase:ConnectionString"] ?? "mongodb://localhost:27017";
-            var databaseName = builder.Configuration["LibraryManagerDatabase:DatabaseName"] ?? "LibraryManager";
-
-            options.UseMongoDB(connectionStrings, databaseName);
-        });
-
 
         builder.Host.UseSerilog((context, configuration) =>
             configuration.ReadFrom.Configuration(context.Configuration));

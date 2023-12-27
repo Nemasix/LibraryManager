@@ -1,11 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
-using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 
 namespace Infrastructure.Persistence.Repositories
 {
@@ -13,9 +11,10 @@ namespace Infrastructure.Persistence.Repositories
     {
         public LibraryManagerDbContext CreateDbContext(string[] args)
         {
-            var mongoConnectionString = "mongodb://localhost:27017";
-            var mongoClient = new MongoClient(mongoConnectionString);
-            return LibraryManagerDbContext.Create(mongoClient.GetDatabase("LibraryManager"));
+            var optionsBuilder = new DbContextOptionsBuilder<LibraryManagerDbContext>();
+            optionsBuilder.UseSqlite("Data Source=library.db");
+
+            return new LibraryManagerDbContext(optionsBuilder.Options);
         }
     }
 }

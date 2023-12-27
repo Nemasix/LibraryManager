@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using Domain.Entities;
-using MongoDB.Driver;
 
 namespace Infrastructure.Persistence.Repositories
 {
@@ -12,11 +11,6 @@ namespace Infrastructure.Persistence.Repositories
         public LibraryManagerDbContext(DbContextOptions options) : base(options)
         {
         }
-
-        public static LibraryManagerDbContext Create(IMongoDatabase database) =>
-        new(new DbContextOptionsBuilder<LibraryManagerDbContext>()
-            .UseMongoDB(database.Client, database.DatabaseNamespace.DatabaseName)
-            .Options);
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
