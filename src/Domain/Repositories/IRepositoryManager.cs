@@ -8,6 +8,8 @@ namespace Domain.Repositories
     public interface IRepositoryManager
     {
         IBookRepository Book { get; }
+        ILoanRepository Loan { get; }
+        IUserRepository User { get; }
         IUnitOfWork UnitOfWork { get; } 
     }
 }

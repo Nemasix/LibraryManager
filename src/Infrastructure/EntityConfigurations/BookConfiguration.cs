@@ -16,6 +16,10 @@ namespace Infrastructure.EntityConfigurations
             builder.Property(book => book.Id).ValueGeneratedOnAdd();
             builder.Property(book => book.Title).IsRequired().HasMaxLength(200);
             builder.Property(book => book.Author).IsRequired().HasMaxLength(200);
+            builder.HasMany(book => book.Loans)
+                .WithOne()
+                .HasForeignKey(loan => loan.BookId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

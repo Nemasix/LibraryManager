@@ -1,3 +1,6 @@
+using System.ComponentModel.DataAnnotations;
+using System.Text.RegularExpressions;
+
 namespace Domain.Entities
 {
     /// <summary>
@@ -21,33 +24,46 @@ namespace Domain.Entities
         public string ISBN { get; set; }
 
         /// <summary>
-        /// Gets or sets the publisher of the book.
-        /// </summary>
-        public string Publisher { get; set; }
-
-        /// <summary>
-        /// Gets or sets the publication date of the book.
-        /// </summary>
-        public DateTime PublicationDate { get; set; }
-
-        /// <summary>
         /// Gets or sets the language of the book.
         /// </summary>
         public string Language { get; set; }
 
         /// <summary>
-        /// Gets or sets the genre of the book.
+        /// Gets or sets the number of loans of the book.
         /// </summary>
-        public string Genre { get; set; }
+        public ICollection<Loan> Loans { get; set; }
+        public Guid OwnerId { get; set; }
 
-        /// <summary>
-        /// Gets or sets the price of the book.
-        /// </summary>
-        public decimal Price { get; set; }
-
-        /// <summary>
-        /// Gets or sets the number of pages in the book.
-        /// </summary>
-        public int NumberOfPages { get; set; }
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (string.IsNullOrEmpty(Title))
+            {
+                yield return new ValidationResult("Title is required", new[] { nameof(Title) });
+            }
+            if (string.IsNullOrEmpty(Author))
+            {
+                yield return new ValidationResult("Author is required", new[] { nameof(Author) });
+            }
+            if (string.IsNullOrEmpty(ISBN))
+            {
+                yield return new ValidationResult("ISBN is required", new[] { nameof(ISBN) });
+            }
+            if (string.IsNullOrEmpty(Language))
+            {
+                yield return new ValidationResult("Language is required", new[] { nameof(Language) });
+            }
+            if(Title.Length > 200)
+            {
+                yield return new ValidationResult("Title must be less than 200 characters long", new[] { nameof(Title) });
+            }
+            if(Author.Length > 200)
+            {
+                yield return new ValidationResult("Author must be less than 200 characters long", new[] { nameof(Author) });
+            }
+            if(!Regex.Match(ISBN, @"^(?:ISBN(?:-1[03])?:?\ )?(?=[0-9X]{10}$|(?=(?:[0-9]+[-\ ]){3})[-\ 0-9X]{13}$|97[89][0-9]{10}$|(?=(?:[0-9]+[-\ ]){4})[-\ 0-9]{17}$)(?:97[89][-\ ]?)?[0-9]{1,5}[-\ ]?[0-9]+[-\ ]?[0-9]+[-\ ]?[0-9X]$").Success)
+            {
+                yield return new ValidationResult("ISBN is not valid", new[] { nameof(ISBN) });
+            }
+        }
     }
 }

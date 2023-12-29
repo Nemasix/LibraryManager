@@ -30,9 +30,14 @@ namespace Infrastructure.Repositories
             return await _dbContext.Books.ToListAsync(ct);
         }
 
+        public async Task<IEnumerable<Book>> GetAllByOwnerAsync(Guid ownerId, CancellationToken ct = default)
+        {
+            return await _dbContext.Books.Include(books => books.Loans).Where(b => b.OwnerId == ownerId).ToListAsync(ct);
+        }
+
         public async Task<Book> GetByIdAsync(Guid id, CancellationToken ct = default)
         {
-            return await _dbContext.Books.SingleOrDefaultAsync(b => b.Id == id, ct);
+            return await _dbContext.Books.FirstOrDefaultAsync(b => b.Id == id, ct);
         }
     }
 }

@@ -19,14 +19,21 @@ namespace Application.Services
             _repositoryManager = repositoryManager;
         }
 
-        public async Task<BookDto> CreateAsync(BookForCreationDto bookDto, CancellationToken cancellationToken = default)
+        public async Task<BookDto> CreateAsync(BookForCreationDto bookForCreationDto, CancellationToken cancellationToken = default)
         {
-            var book = bookDto.Adapt<Domain.Entities.Book>();
+            var book = bookForCreationDto.Adapt<Domain.Entities.Book>();
             _repositoryManager.Book.Add(book);
 
             await _repositoryManager.UnitOfWork.SaveChangesAsync(cancellationToken);
 
-            return book.Adapt<BookDto>();
+            var owner = await _repositoryManager.User.GetByIdAsync(book.OwnerId, cancellationToken);
+            if (owner == null)
+            {
+                throw new UserNotFoundException(book.OwnerId);
+            }
+            var bookDto = book.Adapt<BookDto>();
+            bookDto.Owner = owner.Adapt<UserDto>();
+            return bookDto;
         }
 
         public async Task DeleteAsync(Guid id, CancellationToken cancellationToken = default)
@@ -38,7 +45,32 @@ namespace Application.Services
         public async Task<IEnumerable<BookDto>> GetAllAsync(CancellationToken cancellationToken = default)
         {
             var books = await _repositoryManager.Book.GetAllAsync(cancellationToken);
-            var booksDto = books.Adapt<IEnumerable<BookDto>>();
+            var booksDto = books.Select(book =>
+            {
+                var bookDto = book.Adapt<BookDto>();
+                bookDto.Owner = _repositoryManager.User.GetByIdAsync(book.OwnerId).Result.Adapt<UserDto>();
+                return bookDto;
+            });
+
+            return booksDto;
+        }
+
+        public async Task<IEnumerable<BookDto>> GetAllByOwnerAsync(Guid ownerId, CancellationToken cancellationToken = default)
+        {
+            var owner = await _repositoryManager.User.GetByIdAsync(ownerId, cancellationToken);
+            if (owner == null)
+            {
+                throw new UserNotFoundException(ownerId);
+            }
+
+            var books = await _repositoryManager.Book.GetAllByOwnerAsync(ownerId);
+
+            var booksDto = books.Select(book =>
+            {
+                var bookDtoo = book.Adapt<BookDto>();
+                bookDtoo.Owner = owner.Adapt<UserDto>();
+                return bookDtoo;
+            });
 
             return booksDto;
         }
@@ -50,11 +82,18 @@ namespace Application.Services
             {
                 throw new BookNotFoundException(id);
             }
+            var owner = await _repositoryManager.User.GetByIdAsync(book.OwnerId, cancellationToken);
+            if (owner == null)
+            {
+                throw new UserNotFoundException(book.OwnerId);
+            }
             var bookDto = book.Adapt<BookDto>();
+            bookDto.Owner = owner.Adapt<UserDto>();
+
             return bookDto;
         }
 
-        public async Task UpdateAsync(Guid id, BookForUpdateDto bookDto, CancellationToken cancellationToken = default)
+        public async Task UpdateAsync(Guid id, BookForUpdateDto bookForUpdateDto, CancellationToken cancellationToken = default)
         {
             var book = await _repositoryManager.Book.GetByIdAsync(id, cancellationToken);
             if(book == null)
@@ -62,15 +101,10 @@ namespace Application.Services
                 throw new BookNotFoundException(id);
             }
 
-            book.Title = bookDto.Title;
-            book.Author = bookDto.Author;
-            book.ISBN = bookDto.ISBN;
-            book.Publisher = bookDto.Publisher;
-            book.PublicationDate = bookDto.PublicationDate;
-            book.Language = bookDto.Language;
-            book.Genre = bookDto.Genre;
-            book.Price = bookDto.Price;
-            book.NumberOfPages = bookDto.NumberOfPages;
+            book.Title = bookForUpdateDto.Title;
+            book.Author = bookForUpdateDto.Author;
+            book.ISBN = bookForUpdateDto.ISBN;
+            book.OwnerId = bookForUpdateDto.OwnerId ?? book.OwnerId;
 
             await _repositoryManager.UnitOfWork.SaveChangesAsync(cancellationToken);
         }

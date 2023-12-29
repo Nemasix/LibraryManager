@@ -19,6 +19,14 @@ namespace Domain.Repositories
         Task<IEnumerable<Book>> GetAllAsync(CancellationToken ct = default(CancellationToken));
 
         /// <summary>
+        /// Retrieves all Book by owner asynchronously.
+        /// </summary>
+        /// <param name="ownerId">The owner Id.</param>
+        /// <param name="ct">The cancellation token.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains the collection of Book.</returns>
+        Task<IEnumerable<Book>> GetAllByOwnerAsync(Guid ownerId, CancellationToken ct = default(CancellationToken));
+
+        /// <summary>
         /// Retrieves a book by its ID asynchronously.
         /// </summary>
         /// <param name="id">The ID of the book.</param>

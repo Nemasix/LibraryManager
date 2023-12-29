@@ -47,6 +47,12 @@ internal class Program
             app.UseSwaggerUI();
         }
 
+        using (var scope = app.Services.CreateScope())
+        {
+            var dbContext = scope.ServiceProvider.GetRequiredService<LibraryManagerDbContext>();
+            dbContext.Database.Migrate();
+        }
+
         app.UseSerilogRequestLogging();
 
         app.UseHttpsRedirection();
@@ -56,14 +62,5 @@ internal class Program
         app.MapControllers();
 
         app.Run();
-    }
-
-    private static async Task ApplyMigrations(IServiceProvider serviceProvider)
-    {
-        using var scope = serviceProvider.CreateScope();
-
-        await using LibraryManagerDbContext context = scope.ServiceProvider.GetRequiredService<LibraryManagerDbContext>();
-
-        await context.Database.MigrateAsync();
     }
 }
