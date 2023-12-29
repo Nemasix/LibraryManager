@@ -6,13 +6,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="BackgroundJobs\**" />
-    <Compile Remove="Persistence\Migrations\**" />
     <Compile Remove="Services\**" />
     <EmbeddedResource Remove="BackgroundJobs\**" />
-    <EmbeddedResource Remove="Persistence\Migrations\**" />
     <EmbeddedResource Remove="Services\**" />
     <None Remove="BackgroundJobs\**" />
-    <None Remove="Persistence\Migrations\**" />
     <None Remove="Services\**" />
   </ItemGroup>
   <ItemGroup>
@@ -35,6 +32,6 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Persistence\EntityConfigurations\" />
+    <Folder Include="EntityConfigurations\" />
   </ItemGroup>
 </Project>

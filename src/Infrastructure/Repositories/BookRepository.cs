@@ -6,7 +6,7 @@ using Domain.Entities;
 using Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.Persistence.Repositories
+namespace Infrastructure.Repositories
 {
     public sealed class BookRepository : IBookRepository
     {

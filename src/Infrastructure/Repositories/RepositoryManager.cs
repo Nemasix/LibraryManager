@@ -1,12 +1,13 @@
-﻿using Infrastructure;
-using Infrastructure.Persistence.Repositories;
+﻿using Domain.Repositories;
+using Infrastructure;
+using Infrastructure.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Repositories
+namespace Infrastructure.Repositories
 {
     public sealed class RepositoryManager : IRepositoryManager
     {

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.Persistence.EntityConfigurations
+namespace Infrastructure.EntityConfigurations
 {
     internal sealed class BookConfiguration : IEntityTypeConfiguration<Book>
     {

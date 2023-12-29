@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure.Persistence.Repositories
+namespace Infrastructure.Repositories
 {
     internal sealed class UnitOfWork : IUnitOfWork
     {
