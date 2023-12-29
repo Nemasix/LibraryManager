@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -6,10 +6,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="BackgroundJobs\**" />
+    <Compile Remove="Persistence\Migrations\**" />
     <Compile Remove="Services\**" />
     <EmbeddedResource Remove="BackgroundJobs\**" />
+    <EmbeddedResource Remove="Persistence\Migrations\**" />
     <EmbeddedResource Remove="Services\**" />
     <None Remove="BackgroundJobs\**" />
+    <None Remove="Persistence\Migrations\**" />
     <None Remove="Services\**" />
   </ItemGroup>
   <ItemGroup>
@@ -33,6 +36,5 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Persistence\EntityConfigurations\" />
-    <Folder Include="Persistence\Migrations\" />
   </ItemGroup>
 </Project>

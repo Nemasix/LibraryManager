@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Domain.Entities;
 using Microsoft.Extensions.Configuration;
 
-namespace Infrastructure.Persistence.Repositories
+namespace Infrastructure
 {
     public sealed class LibraryManagerDbContext : DbContext
     {

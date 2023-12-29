@@ -3,7 +3,6 @@ using Application.Abstractions;
 using Application.Services;
 using Domain.Repositories;
 using Infrastructure;
-using Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Presentation;
@@ -34,6 +33,8 @@ internal class Program
         builder.Services.AddSwaggerGen(c =>
             c.SwaggerDoc("v1", new OpenApiInfo { Title = "Web", Version = "v1" }));
 
+        builder.Services.AddScoped<IRepositoryManager, RepositoryManager>();
+        builder.Services.AddScoped<IServiceManager, ServiceManager>();
 
         builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 
@@ -50,6 +51,8 @@ internal class Program
         app.UseHttpsRedirection();
 
         app.UseMiddleware<ExceptionHandlingMiddleware>();
+
+        app.MapControllers();
 
         app.Run();
     }
