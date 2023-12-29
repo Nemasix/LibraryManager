@@ -16,8 +16,17 @@ internal class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
+        var connectionString = builder.Configuration.GetConnectionString("cs");
         builder.Services.AddDbContext<LibraryManagerDbContext>(options =>
-            options.UseSqlite(builder.Configuration.GetConnectionString("cs")));
+            options.UseSqlite(connectionString));
+    
+        builder.Host.UseSerilog((context, configuration) =>
+            configuration.ReadFrom.Configuration(context.Configuration));
+
+        builder.Services
+            .AddApplication()
+            .AddInfrastructure()
+            .AddPresentation();
 
         builder.Services.AddControllers().AddApplicationPart(typeof(Presentation.AssemblyReference).Assembly);
 
@@ -25,15 +34,8 @@ internal class Program
         builder.Services.AddSwaggerGen(c =>
             c.SwaggerDoc("v1", new OpenApiInfo { Title = "Web", Version = "v1" }));
 
-        builder.Services
-            .AddApplication()
-            .AddInfrastructure()
-            .AddPresentation();
 
         builder.Services.AddTransient<ExceptionHandlingMiddleware>();
-
-        builder.Host.UseSerilog((context, configuration) =>
-            configuration.ReadFrom.Configuration(context.Configuration));
 
         var app = builder.Build();
 

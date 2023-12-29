@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Domain.Entities;
+using Microsoft.Extensions.Configuration;
 
 namespace Infrastructure.Persistence.Repositories
 {
@@ -8,7 +9,7 @@ namespace Infrastructure.Persistence.Repositories
         public DbSet<Book> Books { get; set; }
 
 
-        public LibraryManagerDbContext(DbContextOptions options) : base(options)
+        public LibraryManagerDbContext(DbContextOptions<LibraryManagerDbContext> options) : base(options)
         {
         }
 

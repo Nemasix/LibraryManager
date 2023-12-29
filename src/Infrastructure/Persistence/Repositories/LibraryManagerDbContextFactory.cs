@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Design;
 
 namespace Infrastructure.Persistence.Repositories
 {
-    public class LibraryManagerDbContextFactory : IDesignTimeDbContextFactory<LibraryManagerDbContext>
+    /* public class LibraryManagerDbContextFactory : IDesignTimeDbContextFactory<LibraryManagerDbContext>
     {
         public LibraryManagerDbContext CreateDbContext(string[] args)
         {
@@ -16,5 +16,5 @@ namespace Infrastructure.Persistence.Repositories
 
             return new LibraryManagerDbContext(optionsBuilder.Options);
         }
-    }
+    } */
 }
