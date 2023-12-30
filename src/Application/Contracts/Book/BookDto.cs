@@ -14,6 +14,7 @@ namespace Application.Contracts
         public string Author { get; set; }
         public string ISBN { get; set; }
         public ICollection<LoanDto> Loans { get; set; }
+        public Guid OwnerId { get; set; }
         public UserDto Owner { get; set; }
 
     }

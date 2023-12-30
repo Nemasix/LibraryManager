@@ -19,10 +19,12 @@ internal class Program
         var connectionString = builder.Configuration.GetConnectionString("cs");
         builder.Services.AddDbContext<LibraryManagerDbContext>(options =>
             options.UseSqlite(connectionString));
-    
+            
         builder.Host.UseSerilog((context, configuration) =>
             configuration.ReadFrom.Configuration(context.Configuration));
-
+        
+        builder.Logging.ClearProviders();
+        
         builder.Services
             .AddApplication()
             .AddInfrastructure()
@@ -40,6 +42,7 @@ internal class Program
         builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 
         var app = builder.Build();
+        app.UseSerilogRequestLogging();
 
         if (app.Environment.IsDevelopment())
         {
@@ -52,10 +55,6 @@ internal class Program
             var dbContext = scope.ServiceProvider.GetRequiredService<LibraryManagerDbContext>();
             dbContext.Database.Migrate();
         }
-
-        app.UseSerilogRequestLogging();
-
-        app.UseHttpsRedirection();
 
         app.UseMiddleware<ExceptionHandlingMiddleware>();
 
