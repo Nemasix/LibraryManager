@@ -52,5 +52,12 @@ namespace Presentation.Controllers
             await _serviceManager.BookService.DeleteAsync(id, ct);
             return NoContent();
         }
+
+        [HttpGet("{id:guid}/loans")]
+        public async Task<IActionResult> GetLoansByBookId(Guid id, CancellationToken ct)
+        {
+            var loans = await _serviceManager.LoanService.GetAllByBookAsync(id, ct);
+            return Ok(loans);
+        }
     }
 }
