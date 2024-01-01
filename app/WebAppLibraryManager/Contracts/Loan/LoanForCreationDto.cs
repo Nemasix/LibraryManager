@@ -1,4 +1,4 @@
-﻿namespace WebAppLibraryManager.Contracts.Loan
+﻿namespace WebAppLibraryManager.Contracts
 {
     public class LoanForCreationDto
     {
