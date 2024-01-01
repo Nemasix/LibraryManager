@@ -4,6 +4,7 @@ using System.Diagnostics;
 using WebAppLibraryManager.Contracts;
 using WebAppLibraryManager.Models;
 using WebAppLibraryManager.Services;
+using Mapster;
 
 namespace WebAppLibraryManager.Controllers
 {
@@ -58,20 +59,21 @@ namespace WebAppLibraryManager.Controllers
         public async Task<ActionResult> Edit(Guid id)
         {
             var user = await _serviceManager.UserService.GetUserAsync(id);
-            return View(user);
+            UserForUpdateDto userForUpdateDto = user.Adapt<UserForUpdateDto>();
+            return View(userForUpdateDto);
         }
 
         // POST: UserController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(Guid id, UserDto user)
+        public async Task<ActionResult> Edit(Guid id, UserForUpdateDto user)
         {
             try
             {
-                var result = await _serviceManager.UserService.UpdateUserAsync(id, user);
+                await _serviceManager.UserService.UpdateUserAsync(id, user);
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception ex)
             {
                 return View();
             }

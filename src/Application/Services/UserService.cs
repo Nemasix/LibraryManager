@@ -62,6 +62,7 @@ namespace Application.Services
 
             user.FirstName = userDto.FirstName;
             user.LastName = userDto.LastName;
+            user.UserName = userDto.UserName;
             user.Email = userDto.Email;
             user.Password = userDto.Password;
 

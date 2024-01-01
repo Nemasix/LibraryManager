@@ -11,7 +11,7 @@ namespace WebAppLibraryManager.Services
 
         Task<UserDto> CreateUserAsync(UserForCreationDto user);
 
-        Task<UserDto> UpdateUserAsync(Guid id, UserForUpdateDto user);
+        Task UpdateUserAsync(Guid id, UserForUpdateDto user);
 
         Task DeleteUserAsync(Guid id);
     }

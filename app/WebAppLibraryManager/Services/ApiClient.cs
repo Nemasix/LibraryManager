@@ -4,23 +4,23 @@ namespace WebAppLibraryManager.Services
 {
     public class ApiClient
     {
-        private readonly HttpClient HttpClient;
+        private readonly HttpClient httpClient;
         private IConfiguration Configuration;
 
         public ApiClient(IConfiguration configuration)
         {
             Configuration = configuration;
-            HttpClient = new HttpClient();
-            HttpClient.BaseAddress = new Uri(configuration.GetSection("ApiSettings").GetValue<string>("Url"));
-            HttpClient.DefaultRequestHeaders.Accept.Clear();
-            HttpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(configuration.GetSection("ApiSettings").GetValue<string>("Url"));
+            httpClient.DefaultRequestHeaders.Accept.Clear();
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
         public async Task<T> GetAsync<T>(string path)
         {
             try
             {
-                var response = await HttpClient.GetAsync($"api/{path}");
+                var response = await httpClient.GetAsync($"api/{path}");
                 if (response.IsSuccessStatusCode)
                 {
                     return await response.Content.ReadFromJsonAsync<T>();
@@ -38,19 +38,19 @@ namespace WebAppLibraryManager.Services
 
         public async Task DeleteAsync(string path)
         {
-            var response = await HttpClient.DeleteAsync($"api/{path}");
+            var response = await httpClient.DeleteAsync($"api/{path}");
             if (!response.IsSuccessStatusCode)
             {
                 throw new Exception($"Error calling the API: {response.ReasonPhrase}");
             }
         }
 
-        public async Task<T> PostAsync<T>(string path, T item)
+        public async Task<TResult> PostAsync<T1, TResult>(string path, T1 item)
         {
-            var response = await HttpClient.PostAsJsonAsync($"api/{path}", item);
+            var response = await httpClient.PostAsJsonAsync($"api/{path}", item);
             if (response.IsSuccessStatusCode)
             {
-                return await response.Content.ReadFromJsonAsync<T>();
+                return await response.Content.ReadFromJsonAsync<TResult>();
             }
             else
             {
@@ -58,25 +58,21 @@ namespace WebAppLibraryManager.Services
             }
         }
 
-        public async Task<T> PutAsync<T>(string path, T item)
+        public async Task PutAsync<T>(string path, T item)
         {
-            var response = await HttpClient.PutAsJsonAsync($"api/{path}", item);
-            if (response.IsSuccessStatusCode)
-            {
-                return await response.Content.ReadFromJsonAsync<T>();
-            }
-            else
+            var response = await httpClient.PutAsJsonAsync($"api/{path}", item);
+            if (!response.IsSuccessStatusCode)
             {
                 throw new Exception($"Error calling the API: {response.ReasonPhrase}");
             }
         }
 
-        public async Task<T> PatchAsync<T>(string path, T item)
+        public async Task<TResult> PatchAsync<T1, TResult>(string path, T1 item)
         {
-            var response = await HttpClient.PatchAsJsonAsync($"api/{path}", item);
+            var response = await httpClient.PatchAsJsonAsync($"api/{path}", item);
             if (response.IsSuccessStatusCode)
             {
-                return await response.Content.ReadFromJsonAsync<T>();
+                return await response.Content.ReadFromJsonAsync<TResult>();
             }
             else
             {

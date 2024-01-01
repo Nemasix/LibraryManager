@@ -24,12 +24,12 @@ namespace WebAppLibraryManager.Services
 
         public async Task<UserDto> CreateUserAsync(UserForCreationDto user)
         {
-            return await ApiClient.PostAsync<UserDto>("user", user);
+            return await ApiClient.PostAsync<UserForCreationDto, UserDto>("user", user);
         }
 
-        public async Task<UserDto> UpdateUserAsync(Guid id, UserForUpdateDto user)
+        public async Task UpdateUserAsync(Guid id, UserForUpdateDto user)
         {
-            return await ApiClient.PutAsync<UserDto>($"user/{id}", user);
+            await ApiClient.PutAsync<UserForUpdateDto>($"user/{id}", user);
         }
 
         public async Task DeleteUserAsync(Guid id)
