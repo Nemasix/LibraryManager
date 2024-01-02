@@ -10,10 +10,10 @@ namespace Presentation.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class UserController : ControllerBase
+    public class UsersController : ControllerBase
     {
         private readonly IServiceManager _serviceManager;
-        public UserController(IServiceManager serviceManager)
+        public UsersController(IServiceManager serviceManager)
         {
             _serviceManager = serviceManager;
         }

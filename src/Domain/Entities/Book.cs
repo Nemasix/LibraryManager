@@ -24,11 +24,6 @@ namespace Domain.Entities
         public string ISBN { get; set; }
 
         /// <summary>
-        /// Gets or sets the language of the book.
-        /// </summary>
-        public string Language { get; set; }
-
-        /// <summary>
         /// Gets or sets the number of loans of the book.
         /// </summary>
         public ICollection<Loan> Loans { get; set; }
@@ -47,10 +42,6 @@ namespace Domain.Entities
             if (string.IsNullOrEmpty(ISBN))
             {
                 yield return new ValidationResult("ISBN is required", new[] { nameof(ISBN) });
-            }
-            if (string.IsNullOrEmpty(Language))
-            {
-                yield return new ValidationResult("Language is required", new[] { nameof(Language) });
             }
             if(Title.Length > 200)
             {

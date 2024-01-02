@@ -10,10 +10,10 @@ namespace Presentation.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class LoanController : ControllerBase
+    public class LoansController : ControllerBase
     {
         private readonly IServiceManager _serviceManager;
-        public LoanController(IServiceManager serviceManager)
+        public LoansController(IServiceManager serviceManager)
         {
             _serviceManager = serviceManager;
         }
