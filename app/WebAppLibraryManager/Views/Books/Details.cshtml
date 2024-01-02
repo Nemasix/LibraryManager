@@ -1,38 +1,38 @@
-﻿@model WebAppLibraryManager.Contracts.LoanDto
+﻿@model WebAppLibraryManager.Contracts.BookDto
 
 @{
-    ViewData["Title"] = "View";
+    ViewData["Title"] = "Details";
 }
 
-<h1>View</h1>
+<h1>Details</h1>
 
 <div>
-    <h4>LoanDto</h4>
+    <h4>BookDto</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.BookId)
+            @Html.DisplayNameFor(model => model.Title)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Book)
+            @Html.DisplayFor(model => model.Title)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Loaner)
+            @Html.DisplayNameFor(model => model.Author)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LoanerId)
+            @Html.DisplayFor(model => model.Author)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LoanDate)
+            @Html.DisplayNameFor(model => model.ISBN)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LoanDate)
+            @Html.DisplayFor(model => model.ISBN)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ReturnDate)
+            @Html.DisplayNameFor(model => model.Owner)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ReturnDate)
+            @Html.DisplayFor(model => model.Owner)
         </dd>
     </dl>
 </div>

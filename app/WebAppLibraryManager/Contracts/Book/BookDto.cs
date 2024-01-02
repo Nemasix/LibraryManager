@@ -9,5 +9,10 @@
         public ICollection<LoanDto> Loans { get; set; }
         public Guid OwnerId { get; set; }
         public UserDto Owner { get; set; }
+
+        public override string ToString()
+        {
+            return $"Title: {Title} - Author: {Author}";
+        }
     }
 }

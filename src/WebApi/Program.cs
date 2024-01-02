@@ -4,11 +4,16 @@ using Application.Services;
 using Domain.Repositories;
 using Infrastructure;
 using Infrastructure.Repositories;
+using Microsoft.AspNetCore.Http.Json;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Presentation;
 using Presentation.Middlewares;
 using Serilog;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 
 internal class Program
 {
@@ -19,12 +24,12 @@ internal class Program
         var connectionString = builder.Configuration.GetConnectionString("cs");
         builder.Services.AddDbContext<LibraryManagerDbContext>(options =>
             options.UseSqlite(connectionString));
-            
+
         builder.Host.UseSerilog((context, configuration) =>
             configuration.ReadFrom.Configuration(context.Configuration));
-        
+
         builder.Logging.ClearProviders();
-        
+
         builder.Services
             .AddApplication()
             .AddInfrastructure()
@@ -41,6 +46,7 @@ internal class Program
 
         builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 
+
         var app = builder.Build();
         app.UseSerilogRequestLogging();
 
@@ -55,6 +61,9 @@ internal class Program
             var dbContext = scope.ServiceProvider.GetRequiredService<LibraryManagerDbContext>();
             dbContext.Database.Migrate();
         }
+
+        // TODO : Limiter l'accès à l'API en production
+        app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
         app.UseMiddleware<ExceptionHandlingMiddleware>();
 

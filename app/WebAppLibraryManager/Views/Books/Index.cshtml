@@ -1,29 +1,31 @@
-@model IEnumerable<WebAppLibraryManager.Contracts.LoanDto>
+﻿@model IEnumerable<WebAppLibraryManager.Contracts.BookDto>
 
 @{
-    ViewData["Title"] = "View";
+    ViewData["Title"] = "Index";
 }
 
-<h1>View</h1>
+<h1>Index</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.BookId)
+                @Html.DisplayNameFor(model => model.Id)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.LoanerId)
+                @Html.DisplayNameFor(model => model.Title)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.LoanDate)
+                @Html.DisplayNameFor(model => model.Author)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ReturnDate)
+                @Html.DisplayNameFor(model => model.ISBN)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Owner)
             </th>
             <th></th>
         </tr>
@@ -33,16 +35,19 @@
         {
             <tr>
                 <td>
-                    @item.Book
+                    @Html.DisplayFor(modelItem => item.Id)
                 </td>
                 <td>
-                    @item.Loaner
+                    @Html.DisplayFor(modelItem => item.Title)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.LoanDate)
+                    @Html.DisplayFor(modelItem => item.Author)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ReturnDate)
+                    @Html.DisplayFor(modelItem => item.ISBN)
+                </td>
+                <td>
+                    @item.Owner
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { item.Id }) |

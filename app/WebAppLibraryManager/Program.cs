@@ -9,6 +9,14 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IServiceManager, ServiceManager>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy", builder =>
+    {
+        builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -24,7 +32,10 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseCors("CorsPolicy");
+
 app.UseAuthorization();
+
 
 app.MapControllerRoute(
     name: "default",
