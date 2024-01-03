@@ -12,16 +12,18 @@ namespace Application.Services
         private readonly Lazy<IBookService> _lazyBookService;
         private readonly Lazy<ILoanService> _lazyLoanService;
         private readonly Lazy<IUserService> _lazyUserService;
+        private readonly Lazy<ISearchService> _lazySearchService;
 
         public ServiceManager(IRepositoryManager repositoryManager)
         {
             _lazyBookService = new Lazy<IBookService>(() => new BookService(repositoryManager));
             _lazyLoanService = new Lazy<ILoanService>(() => new LoanService(repositoryManager));
-            _lazyUserService = new Lazy<IUserService>(() => new UserService(repositoryManager));    
+            _lazyUserService = new Lazy<IUserService>(() => new UserService(repositoryManager));
         }
 
         public IBookService BookService => _lazyBookService.Value;
         public ILoanService LoanService => _lazyLoanService.Value;
         public IUserService UserService => _lazyUserService.Value;
+        public ISearchService SearchService => _lazySearchService.Value;
     }
 }

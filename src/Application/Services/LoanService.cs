@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Application.Services
 {
-    public class LoanService : ILoanService
+    internal class LoanService : ILoanService
     {
         private readonly IRepositoryManager _repositoryManager;
 
@@ -25,7 +25,7 @@ namespace Application.Services
             var loan = loanForCreationDto.Adapt<Domain.Entities.Loan>();
             _repositoryManager.Loan.Add(loan);
 
-            await _repositoryManager.UnitOfWork.SaveChangesAsync(cancellationToken);;
+            await _repositoryManager.UnitOfWork.SaveChangesAsync(cancellationToken);
 
             return loan.Adapt<LoanDto>();
         }

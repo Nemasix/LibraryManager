@@ -6,11 +6,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="BackgroundJobs\**" />
-    <Compile Remove="Services\**" />
     <EmbeddedResource Remove="BackgroundJobs\**" />
-    <EmbeddedResource Remove="Services\**" />
     <None Remove="BackgroundJobs\**" />
-    <None Remove="Services\**" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj" />

@@ -14,6 +14,7 @@ using Presentation.Middlewares;
 using Serilog;
 using System.Text.Json.Serialization;
 using System.Text.Json;
+using Infrastructure.ThirdParty.Services;
 
 internal class Program
 {
@@ -43,6 +44,7 @@ internal class Program
 
         builder.Services.AddScoped<IRepositoryManager, RepositoryManager>();
         builder.Services.AddScoped<IServiceManager, ServiceManager>();
+        builder.Services.AddScoped<ISearchService, SearchService>();
 
         builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 
