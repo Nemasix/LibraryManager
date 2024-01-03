@@ -16,22 +16,6 @@ namespace Domain.Entities
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            if (LoanDate == null)
-            {
-                yield return new ValidationResult("Loan date is required", new[] { nameof(LoanDate) });
-            }
-            if (ReturnDate == null)
-            {
-                yield return new ValidationResult("Return date is required", new[] { nameof(ReturnDate) });
-            }
-            if (BookId == null)
-            {
-                yield return new ValidationResult("Book id is required", new[] { nameof(BookId) });
-            }
-            if (LoanerId == null)
-            {
-                yield return new ValidationResult("Loaner id is required", new[] { nameof(LoanerId) });
-            }
             if(LoanDate > ReturnDate)
             {
                 yield return new ValidationResult("Loan date must be before return date", new[] { nameof(LoanDate), nameof(ReturnDate) });

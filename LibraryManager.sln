@@ -17,13 +17,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi", "src\WebApi\WebApi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{1FF8892E-780D-40FA-905A-F2AD803DBE2A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Architecture.Tests", "test\Arhitecture.Tests\Architecture.Tests.csproj", "{7DCC85DB-DF96-4AD2-8C13-D342286D1B1E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "test\Arhitecture.Tests\Tests.csproj", "{7DCC85DB-DF96-4AD2-8C13-D342286D1B1E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "app", "app", "{5D2E0870-C33F-4521-8CA3-60284E2FAC6E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppLibraryManager", "app\AppLibraryManager\AppLibraryManager.csproj", "{779815C5-2069-4C83-B098-5FC710144EE7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAppLibraryManager", "app\WebAppLibraryManager\WebAppLibraryManager.csproj", "{82B28585-925E-43A6-AFA9-735A2FBE797A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAppLibraryManager", "app\WebAppLibraryManager\WebAppLibraryManager.csproj", "{82B28585-925E-43A6-AFA9-735A2FBE797A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

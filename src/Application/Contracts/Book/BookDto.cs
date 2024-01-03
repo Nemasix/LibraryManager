@@ -14,6 +14,5 @@ namespace Application.Contracts
         public string Author { get; set; }
         public string ISBN { get; set; }
         public Guid OwnerId { get; set; }
-
     }
 }

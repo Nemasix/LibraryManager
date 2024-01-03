@@ -26,14 +26,7 @@ namespace Application.Services
 
             await _repositoryManager.UnitOfWork.SaveChangesAsync(cancellationToken);
 
-            var owner = await _repositoryManager.User.GetByIdAsync(book.OwnerId, cancellationToken);
-            if (owner == null)
-            {
-                throw new UserNotFoundException(book.OwnerId);
-            }
-            var bookDto = book.Adapt<BookDto>();
-            bookDto.Owner = owner.Adapt<UserDto>();
-            return bookDto;
+            return book.Adapt<BookDto>();
         }
 
         public async Task DeleteAsync(Guid id, CancellationToken cancellationToken = default)
@@ -45,14 +38,8 @@ namespace Application.Services
         public async Task<IEnumerable<BookDto>> GetAllAsync(CancellationToken cancellationToken = default)
         {
             var books = await _repositoryManager.Book.GetAllAsync(cancellationToken);
-            var booksDto = books.Select(book =>
-            {
-                var bookDto = book.Adapt<BookDto>();
-                bookDto.Owner = _repositoryManager.User.GetByIdAsync(book.OwnerId).Result.Adapt<UserDto>();
-                return bookDto;
-            });
-
-            return booksDto;
+            
+            return books.Adapt<IEnumerable<BookDto>>();
         }
 
         public async Task<IEnumerable<BookDto>> GetAllByOwnerAsync(Guid ownerId, CancellationToken cancellationToken = default)
@@ -67,12 +54,10 @@ namespace Application.Services
 
             var booksDto = books.Select(book =>
             {
-                var bookDtoo = book.Adapt<BookDto>();
-                bookDtoo.Owner = owner.Adapt<UserDto>();
-                return bookDtoo;
+                return book.Adapt<BookDto>();
             });
 
-            return booksDto;
+            return booksDto.Adapt<IEnumerable<BookDto>>();
         }
 
         public async Task<BookDto> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
@@ -82,15 +67,8 @@ namespace Application.Services
             {
                 throw new BookNotFoundException(id);
             }
-            var owner = await _repositoryManager.User.GetByIdAsync(book.OwnerId, cancellationToken);
-            if (owner == null)
-            {
-                throw new UserNotFoundException(book.OwnerId);
-            }
-            var bookDto = book.Adapt<BookDto>();
-            bookDto.Owner = owner.Adapt<UserDto>();
 
-            return bookDto;
+            return book.Adapt<BookDto>();
         }
 
         public async Task UpdateAsync(Guid id, BookForUpdateDto bookForUpdateDto, CancellationToken cancellationToken = default)
