@@ -14,6 +14,7 @@ namespace Application.Contracts
 
     public class DocDto
     {
+        public string key { get; set; }
         public int cover_i { get; set; }
         public bool has_fulltext { get; set; }
         public int edition_count { get; set; }

@@ -1,15 +1,14 @@
+# Project
+This project is use for my POC of an Onion Arch.
+
 # LibraryManager
 
-LibraryManager est une application de gestion de bibliothèque qui vous permet de gérer vos livres, vos emprunts et vos retours.
+LibraryManager is an library manager application which permits to manager books and loans.
 
-## Fonctionnalités
+## Features
 
-- Ajouter des livres à la bibliothèque
-- Rechercher des livres par titre, auteur ou catégorie
-- Emprunter des livres
-- Retourner des livres
-- Voir l'historique des emprunts
+- Manage Books, Owners and Loans
+- Search Books by title or author
+- Loan books
+- Show history of loan
 
-## Licence
-
-Ce projet est sous licence MIT. Veuillez consulter le fichier [LICENSE](LICENSE) pour plus d'informations.

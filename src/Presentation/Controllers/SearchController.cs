@@ -19,8 +19,9 @@ namespace Presentation.Controllers
             _searchService = searchService;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Search([FromBody]SearchDto search)
+        [HttpGet]
+        
+        public async Task<IActionResult> Search([FromQuery]SearchDto search)
         {
             var result = await _searchService.Search(search);
             return Ok(result);

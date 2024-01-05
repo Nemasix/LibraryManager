@@ -10,7 +10,7 @@ using Mapster;
 
 namespace Application.Services
 {
-    internal class BookService : IBookService
+    public class BookService : IBookService
     {
         private readonly IRepositoryManager _repositoryManager;
 

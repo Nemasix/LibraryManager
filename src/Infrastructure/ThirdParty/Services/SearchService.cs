@@ -34,7 +34,7 @@ namespace Infrastructure.ThirdParty.Services
 
         public async Task<ResultDto> Search(SearchDto searchDto)
         {
-            var response = await httpClient.GetAsync($"search.json?q={searchDto.Query}");
+            var response = await httpClient.GetAsync($"search.json?q={GetQuery(searchDto)}");
             if (response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
@@ -45,6 +45,24 @@ namespace Infrastructure.ThirdParty.Services
             {
                 throw new Exception($"Error calling the API: {response.ReasonPhrase}");
             }
+        }
+
+        private string GetQuery(SearchDto searchDto)
+        {
+            var query = new StringBuilder();
+            if (!string.IsNullOrEmpty(searchDto.Title))
+            {
+                query.Append($"title:{searchDto.Title}");
+            }
+            if (!string.IsNullOrEmpty(searchDto.Author))
+            {
+                if (query.Length > 0)
+                {
+                    query.Append(" OR ");
+                }
+                query.Append($"author:{searchDto.Author}");
+            }
+            return query.ToString();
         }
     }
 }

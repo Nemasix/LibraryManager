@@ -1,0 +1,70 @@
+﻿@model IEnumerable<WebAppLibraryManager.Contracts.ResultDto>
+
+@{
+    ViewData["Title"] = "Search";
+}
+
+<h1>Search</h1>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" aria-label="Search" aria-describedby="button-addon2" id="SearchText" />
+            <button class="btn btn-outline-secondary" type="button" id="SearchButton">Search</button>
+        </div>
+    </div>
+</div>
+
+<div class="row" id="SearchResult" style="display:none;">
+    <h2>Search Result</h2>
+    <div class="col-md-12">
+        <span class="badge text-bg-primary">X results found</span>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Select</th>
+                <th scope="col">Title</th>
+                <th scope="col">Author</th>
+                <th scope="col">isbn13</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("div#SearchResult").hide();
+
+            $("button#SearchButton").on("click", function () {
+                var SearchText = $("input#SearchText").val();
+                var data = { "Title": SearchText, "Author": SearchText };
+                var ApiUrl = "@Url.Action("Search", "Search")";
+                $.ajax({
+                    url: ApiUrl,
+                    type: "POST",
+                    data: JSON.stringify(data),
+                    contentType: "application/json",
+                    success: function (results) {
+                        $("div#SearchResult").show();
+                        $("span.badge").text(results.num_found + " results found");
+                        $("table tbody").empty();
+                        $.each(results.docs, function (index, value) {
+                            $("table tbody").append("<tr><td><input type='checkbox' name='selectedBooks' value='" + value.key + "' /></td><td>" + value.title + "</td><td>" + value.author_name + "</td><td>" + value.isbn13 + "</td></tr>");
+                        });
+                    },
+                    error: function (jqxhr, textStatus, error) {
+
+                        var err = textStatus + ", " + error;
+                        alert("Error: " + err);
+                        console.log("Request Failed: " + err);
+                        console.log("incoming Text " + jqxhr.responseText);
+                    }
+                });
+            });
+        });
+    </script>
+}

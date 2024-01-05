@@ -5,5 +5,6 @@
         IUserService UserService { get; }
         ILoanService LoanService { get; }
         IBookService BookService { get; }
+        ISearchService SearchService { get; }
     }
 }
