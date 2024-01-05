@@ -50,6 +50,19 @@ namespace WebAppLibraryManager.Controllers
             return View();
         }
 
+        [HttpGet]
+        public async Task<ActionResult> Create(string title, string author, string isbn)
+        {
+            ViewData["ApiUrl"] = Configuration.GetSection("ApiSettings").GetValue<string>("Url");
+            var book = new BookForCreationDto
+            {
+                Title = title,
+                Author = author,
+                ISBN = isbn
+            };
+            return View(book);
+        }
+
         // POST: BooksController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -109,6 +122,7 @@ namespace WebAppLibraryManager.Controllers
         {
             try
             {
+                await _serviceManager.BookService.DeleteBookAsync(id);
                 return RedirectToAction(nameof(Index));
             }
             catch

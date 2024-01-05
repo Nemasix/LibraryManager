@@ -62,6 +62,14 @@ namespace Infrastructure.ThirdParty.Services
                 }
                 query.Append($"author:{searchDto.Author}");
             }
+            if(searchDto.Page.HasValue)
+            {
+                query.Append($"&page={searchDto.Page}");
+            }
+            if(searchDto.Limit.HasValue)
+            {
+                query.Append($"&limit={searchDto.Limit}");
+            }
             return query.ToString();
         }
     }

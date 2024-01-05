@@ -38,6 +38,28 @@ namespace WebAppLibraryManager.Services
                 }
                 query.Append($"author={search.Author}");
             }
+            if (search.Page.HasValue && search.Page.Value > 1)
+            {
+                if (query.Length > 0)
+                {
+                    query.Append("&");
+                }
+                query.Append($"page={search.Page}");
+            } else
+            {
+                query.Append("&page=1");
+            }
+            if(search.Limit.HasValue && search.Limit.Value < 50)
+            {
+                if (query.Length > 0)
+                {
+                    query.Append("&");
+                }
+                query.Append($"limit={search.Limit}");
+            } else
+            {
+                query.Append("&limit=50");
+            }
             return query.ToString();
         }
     }
